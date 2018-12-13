@@ -25,6 +25,7 @@ import javax.portlet.ResourceParameters;
 import javax.portlet.ResourceURL;
 import javax.portlet.annotations.ContextPath;
 import javax.portlet.annotations.Namespace;
+import javax.portlet.annotations.PortletConfiguration;
 import javax.portlet.annotations.RenderMethod;
 import javax.portlet.annotations.ServeResourceMethod;
 
@@ -36,6 +37,7 @@ import javax.portlet.MimeResponse;
  * Contains a resource method and associated markup generator to insert
  * an image.
  */
+@PortletConfiguration(portletName = "BeanPortlet")
 @LiferayPortletConfiguration(
 	portletName = "BeanPortlet",
 	properties = {
