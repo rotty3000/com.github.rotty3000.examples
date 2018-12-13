@@ -39,7 +39,7 @@ import javax.portlet.MimeResponse.Copy;
  * Render state scoped bean. The bean is stored as a render parameter,
  * so it needs to be portlet serializable.
  */
-@RenderStateScoped(paramName = "name")
+@RenderStateScoped
 public class NameBean implements PortletSerializable {
 
    // Inject the portlet namespace
