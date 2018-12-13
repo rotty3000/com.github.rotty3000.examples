@@ -35,7 +35,7 @@ limitations under the License.
       }
    }
 </script>
-<a href="#" onclick="show_hide('help');">Show/Hide Help</a>
+<a href="#" onclick="show_hide('help');return false;">Show/Hide Help</a>
 <div id="help" style="display: none;">
 <p>When this JSP is initially rendered, it automatically triggers a GET XmlHttpRequest to a ResourceURL which causes the following sequence:
    <ul>
