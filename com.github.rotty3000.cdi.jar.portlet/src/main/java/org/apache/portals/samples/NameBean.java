@@ -39,22 +39,22 @@ import javax.portlet.MimeResponse.Copy;
  * Render state scoped bean. The bean is stored as a render parameter,
  * so it needs to be portlet serializable.
  */
-@RenderStateScoped
+@RenderStateScoped(paramName = "name")
 public class NameBean implements PortletSerializable {
-   
-   // Inject the portlet namespace 
+
+   // Inject the portlet namespace
    @Inject @Namespace private String pid;
-   
+
    // Inject the MimeResponse to allow URL creation
    @Inject private            MimeResponse mimeresp;
-   
+
    private final static String PARAM_NAME = "name";
 
    //========== bean state in this block =======================
    private String name;
    //===========================================================
 
-   @Inject 
+   @Inject
    private ActionParameters actparams;
 
    // getters & setters
@@ -67,19 +67,19 @@ public class NameBean implements PortletSerializable {
       this.name = name;
    }
    //================
-   
-   
+
+
    /**
-    * writes the action form as string. This method is placed within the bean 
+    * writes the action form as string. This method is placed within the bean
     * to allow easier access to form state data, which might be part of the bean
-    * state, but not part of the bean public API.  
-    * 
+    * state, but not part of the bean public API.
+    *
     * @return the action form as string
     */
    @RenderMethod(portletNames = {"BeanPortlet"}, ordinal=200)
    public String getActionForm() {
       StringBuilder txt = new StringBuilder(128);
-      
+
       PortletURL aurl = mimeresp.createActionURL(Copy.ALL);
       txt.append("<FORM id='").append(pid).append("-setParams' METHOD='POST' ACTION='").append(aurl);
       txt.append("' enctype='application/x-www-form-urlencoded' accept-charset='UTF-8'>");
@@ -98,10 +98,10 @@ public class NameBean implements PortletSerializable {
 
       return txt.toString();
    }
-   
+
    /**
     * Bean portlet action method for the "BeanHelloWorld" portlet.
-    * Since the submitted form contains a hidden field with the action 
+    * Since the submitted form contains a hidden field with the action
     * name set to "setName", the portlet container routes the request
     * to exactly this method.
     */
@@ -109,13 +109,13 @@ public class NameBean implements PortletSerializable {
    public void setName(ActionRequest req, ActionResponse resp)
          throws PortletException, IOException {
       // The action parameter is injected, so just need to check it or
-      // in this case, copy it to the state. Note that you can't inject directly 
+      // in this case, copy it to the state. Note that you can't inject directly
       // into the state, since the injection is performed before the deserialization.
       name = actparams.getValue(PARAM_NAME);
    }
 
    /**
-    * This method is called by the portlet container to 
+    * This method is called by the portlet container to
     * initialize the bean at the beginning of a request.
     */
    @Override
