@@ -18,6 +18,7 @@
 
 @org.osgi.annotation.bundle.Header(name = "Web-ContextPath", value = "/${Bundle-SymbolicName}")
 @org.osgi.annotation.bundle.Requirement(namespace = "osgi.cdi.extension", name="com.liferay.bean.portlet.cdi.extension")
+@org.osgi.annotation.bundle.Requirement(namespace = "osgi.cdi.extension", name="aries.cdi.el.jsp")
 @org.osgi.annotation.bundle.Requirement(namespace = "osgi.cdi.extension", name="aries.cdi.http")
 @org.osgi.service.cdi.annotations.Beans
 package org.apache.portals.samples;
