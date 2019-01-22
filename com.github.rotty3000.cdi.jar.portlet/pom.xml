@@ -134,10 +134,9 @@
 				</executions>
 				<dependencies>
 					<dependency>
-						<!-- Get this from https://github.com/rotty3000/liferay-portal/tree/LPS-86824/.m2-tmp/com/liferay/com.liferay.ant.bnd/3.0.4 -->
 						<groupId>com.liferay</groupId>
 						<artifactId>com.liferay.ant.bnd</artifactId>
-						<version>3.0.4</version>
+						<version>3.0.6</version>
 						<exclusions>
 							<exclusion>
 								<groupId>biz.aQute.bnd</groupId>
