@@ -3,7 +3,6 @@
 -runee: JavaSE-1.8
 
 -resolve.effective: resolve, active
--m2e.resolve.executionid: resolve-test
 
 -runproperties: \
 	logback.configurationFile=file:${.}/logback.xml,\
