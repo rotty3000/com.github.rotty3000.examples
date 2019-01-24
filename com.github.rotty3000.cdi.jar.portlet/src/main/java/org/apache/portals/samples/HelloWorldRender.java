@@ -24,6 +24,10 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.annotations.RenderMethod;
 
+import org.osgi.service.cdi.annotations.Reference;
+
+import com.liferay.portal.kernel.service.UserLocalService;
+
 /**
  * Simple hello world bean portlet
  */
@@ -58,6 +62,10 @@ public class HelloWorldRender {
    @Inject
    private RenderResponse res;
 
+   @Inject 
+   @Reference
+   private UserLocalService userLocalService;
+
    /**
     * Bean portlet render method for "BeanHelloWorld" portlet.
     */
@@ -91,6 +99,8 @@ public class HelloWorldRender {
       txt.append("Portlet Request number:</td><td>").append(pltreqrn.getRandomNumber());
       txt.append("</td></tr><tr><td>\n");
       txt.append("Request number:</td><td>").append(reqrn.getRandomNumber());
+      txt.append("</td></tr><tr><td>\n");
+      txt.append("Users count:</td><td>").append(userLocalService.getUsersCount());
       txt.append("</td></tr></table></p>\n");
       
       txt.append("<p>User agent: ").append(req.getUserAgent()).append("</p>");
