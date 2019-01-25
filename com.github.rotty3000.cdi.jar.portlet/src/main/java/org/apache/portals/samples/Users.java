@@ -18,15 +18,31 @@
 
 package org.apache.portals.samples;
 
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Retention;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.osgi.service.cdi.annotations.BeanPropertyType;
 import org.osgi.service.cdi.annotations.Reference;
+import org.osgi.service.cdi.annotations.Service;
 
 import com.liferay.portal.kernel.service.UserLocalService;
 
 @Named
+@Service
+@Users.GogoCommand(scope = "cdiportlet", function = "getUsersCount")
 public class Users {
+
+	@BeanPropertyType
+	@Retention(RUNTIME)
+	public static @interface GogoCommand {
+		String PREFIX_ = "osgi.command.";
+		String scope();
+		String[] function();
+	}
 
 	@Inject
 	@Reference

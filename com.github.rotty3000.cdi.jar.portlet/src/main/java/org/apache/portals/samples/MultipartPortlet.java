@@ -38,6 +38,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.inject.Any;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.portlet.ActionRequest;
@@ -83,6 +84,7 @@ public class MultipartPortlet {
 	private static final String TFILE  = "uploadFile";
 
 	@Inject
+	@Any
 	Users users;
 
 	@ActionMethod(portletName = "MultipartPortlet")
