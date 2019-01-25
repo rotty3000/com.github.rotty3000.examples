@@ -118,7 +118,6 @@
 					<bnd><![CDATA[
 						Import-Package:\
 							com.liferay.portal.kernel.service; version="[1.40.0,3.0.0)",\
-							org.w3c.dom,\
 							*
 						-jsp: *.jsp,*.jspf
 						-plugin.jsp: com.liferay.ant.bnd.jsp.JspAnalyzerPlugin
