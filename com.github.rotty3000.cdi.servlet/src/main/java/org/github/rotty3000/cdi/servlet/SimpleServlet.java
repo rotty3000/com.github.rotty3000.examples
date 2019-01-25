@@ -15,20 +15,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.felix.service.command.annotations.RequireGogo;
-import org.osgi.annotation.bundle.Requirement;
-import org.osgi.service.cdi.CDIConstants;
-import org.osgi.service.cdi.annotations.Bean;
 import org.osgi.service.log.Logger;
 import org.osgi.util.promise.Deferred;
 
 @WebServlet(name = "SimpleServlet", urlPatterns = "/s/*")
-@Bean
-@RequireGogo
-@Requirement(namespace = CDIConstants.CDI_EXTENSION_PROPERTY, name = "aries.cdi.http")
-@SuppressWarnings("serial")
 public class SimpleServlet extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
 	private final Logger logger;
 	static final Deferred<ServletContext> servletContext = new Deferred<>();
 
