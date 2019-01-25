@@ -24,6 +24,8 @@
 
 -runrequires: osgi.identity;filter:='(osgi.identity=org.github.rotty3000.cdi.servlet)'
 
+-runblacklist: osgi.identity;filter:='(osgi.identity=org.jboss.spec.javax.el.jboss-el-api_3.0_spec)'
+
 -runbundles: \
 	jboss-classfilewriter;version='[1.2.3,1.2.4)',\
 	org.apache.aries.cdi.extender;version='[0.0.2,0.0.3)',\

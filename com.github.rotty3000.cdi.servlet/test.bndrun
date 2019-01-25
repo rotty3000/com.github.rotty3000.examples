@@ -6,7 +6,7 @@
 
 -runproperties: \
 	logback.configurationFile=file:${.}/logback.xml,\
-	org.osgi.service.http.port=8080,\
+	org.osgi.service.http.port=0,\
 	osgi.console=
 
 -runsystempackages: \
@@ -22,6 +22,8 @@
 	slf4j.api
 
 -runrequires: osgi.identity;filter:='(osgi.identity=org.github.rotty3000.cdi.servlet-test)'
+
+-runblacklist: osgi.identity;filter:='(osgi.identity=org.jboss.spec.javax.el.jboss-el-api_3.0_spec)'
 
 -runbundles: \
 	biz.aQute.junit;version='[4.2.0,4.2.1)',\
