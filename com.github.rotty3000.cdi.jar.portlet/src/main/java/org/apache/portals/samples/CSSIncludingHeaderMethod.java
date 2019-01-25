@@ -16,7 +16,6 @@
  *  under the License.
  */
 
-
 package org.apache.portals.samples;
 
 import java.io.IOException;

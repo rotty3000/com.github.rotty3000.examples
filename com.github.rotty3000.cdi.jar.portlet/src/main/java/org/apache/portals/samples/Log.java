@@ -15,6 +15,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+
 package org.apache.portals.samples;
 
 import java.lang.annotation.ElementType;
@@ -27,7 +28,7 @@ import javax.interceptor.InterceptorBinding;
 
 /**
  * Annotation defining an interceptor binding for logging
- * 
+ *
  * @author nick
  */
 @Inherited

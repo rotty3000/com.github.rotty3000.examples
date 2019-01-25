@@ -16,6 +16,13 @@
  *  under the License.
  */
 
+package org.apache.portals.samples;
+
+import java.io.IOException;
+import java.io.Writer;
+
+import javax.portlet.PortletURL;
+
 /**
  * This bean encapsulates a single test result. When converted to a string or
  * written to a writer, it generates HTML markup containing elements and IDs
@@ -31,15 +38,6 @@
  * (TestCaseName)-success     - indicates general test case success or failure
  * (TestCaseName)-detail      - a detailed message about the test
  *
- */
-package org.apache.portals.samples;
-
-import java.io.IOException;
-import java.io.Writer;
-
-import javax.portlet.PortletURL;
-
-/**
  * Formats a link for a test case.
  *
  * @author nick

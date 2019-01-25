@@ -18,12 +18,10 @@
 
 package org.apache.portals.samples;
 
-import org.osgi.service.cdi.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.liferay.bean.portlet.LiferayPortletConfiguration;
-import com.liferay.portal.kernel.service.UserLocalService;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -40,8 +38,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Dependent;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.portlet.ActionRequest;
