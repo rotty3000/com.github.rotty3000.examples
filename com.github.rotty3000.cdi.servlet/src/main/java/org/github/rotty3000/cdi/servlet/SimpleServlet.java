@@ -7,30 +7,25 @@ import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.aries.cdi.extra.propertytypes.HttpWhiteboardServletName;
-import org.apache.aries.cdi.extra.propertytypes.HttpWhiteboardServletPattern;
 import org.apache.felix.service.command.annotations.RequireGogo;
 import org.osgi.annotation.bundle.Requirement;
 import org.osgi.service.cdi.CDIConstants;
 import org.osgi.service.cdi.annotations.Bean;
-import org.osgi.service.cdi.annotations.Service;
 import org.osgi.service.log.Logger;
 import org.osgi.util.promise.Deferred;
 
+@WebServlet(name = "SimpleServlet", urlPatterns = "/s/*")
 @Bean
-@HttpWhiteboardServletName("SimpleServlet")
-@HttpWhiteboardServletPattern("/s/*")
 @RequireGogo
 @Requirement(namespace = CDIConstants.CDI_EXTENSION_PROPERTY, name = "aries.cdi.http")
-@Service(Servlet.class)
 @SuppressWarnings("serial")
 public class SimpleServlet extends HttpServlet {
 
