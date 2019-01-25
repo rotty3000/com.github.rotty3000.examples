@@ -45,6 +45,12 @@
 			<version>1.0.3</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.liferay.portal</groupId>
+			<artifactId>com.liferay.portal.kernel</artifactId>
+			<version>3.49.3</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.apache.aries.cdi</groupId>
@@ -110,7 +116,10 @@
 				<version>${bnd.version}</version>
 				<configuration>
 					<bnd><![CDATA[
-						Import-Package: org.w3c.dom, *
+						Import-Package:\
+							com.liferay.portal.kernel.service; version="[1.40.0,3.0.0)",\
+							org.w3c.dom,\
+							*
 						-jsp: *.jsp,*.jspf
 						-plugin.jsp: com.liferay.ant.bnd.jsp.JspAnalyzerPlugin
 						-plugin.resourcebundle: com.liferay.ant.bnd.resource.bundle.ResourceBundleLoaderAnalyzerPlugin

@@ -22,51 +22,57 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 
+import javax.annotation.Priority;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
 /**
  * Interceptor to provide logging for our project
- * 
+ *
  * @author Scott Nicklous
  */
 @Interceptor
 @Log
+@Priority(Interceptor.Priority.LIBRARY_BEFORE)
 public class LoggingInterceptor implements Serializable {
 
-   private static final long serialVersionUID = -73481963162413796L;
+	private static final long serialVersionUID = -73481963162413796L;
 
-   private static final Logger logger = LoggerFactory.getLogger(LoggingInterceptor.class.getCanonicalName());
+	private static final Logger logger = LoggerFactory.getLogger(LoggingInterceptor.class.getCanonicalName());
 
-   /**
-    * Method called for use as an interceptor. Called before the intercepted method is 
-    * called. 
-    * 
-    * @param ic
-    * @return
-    * @throws Exception
-    */
-   @AroundInvoke
-   public Object log(InvocationContext ic) throws Exception {
+	public LoggingInterceptor() {
+		logger.debug("Creating interceptor: {}", this);
+	}
 
-      String cls = ic.getMethod().getDeclaringClass().getCanonicalName();
-      String meth = ic.getMethod().getName();
-      
-      // Log method entry
-      Logger mlogger = LoggerFactory.getLogger(cls);
-      mlogger.debug("ENTERING: " + cls, meth);
-      
-      // Continue through chain until actual bean method is executed
-      Object obj = ic.proceed(); 
-   
-      // this logging statement is only for debugging.
-      logger.debug("Method " + meth + " has been called.");
-      
-      // Now log the exit
-      mlogger.debug("EXITING: " + cls, meth);
+	/**
+	 * Method called for use as an interceptor. Called before the intercepted method is
+	 * called.
+	 *
+	 * @param ic
+	 * @return
+	 * @throws Exception
+	 */
+	@AroundInvoke
+	public Object log(InvocationContext ic) throws Exception {
 
-      return obj;
-   }
+		String cls = ic.getMethod().getDeclaringClass().getCanonicalName();
+		String meth = ic.getMethod().getName();
+
+		// Log method entry
+		Logger mlogger = LoggerFactory.getLogger(cls);
+		mlogger.debug("ENTERING: " + cls, meth);
+
+		// Continue through chain until actual bean method is executed
+		Object obj = ic.proceed();
+
+		// this logging statement is only for debugging.
+		logger.debug("Method " + meth + " has been called.");
+
+		// Now log the exit
+		mlogger.debug("EXITING: " + cls, meth);
+
+		return obj;
+	}
 
 }

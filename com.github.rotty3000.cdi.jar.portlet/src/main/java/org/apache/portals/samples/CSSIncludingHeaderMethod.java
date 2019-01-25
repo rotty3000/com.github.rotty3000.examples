@@ -30,23 +30,24 @@ import javax.portlet.annotations.HeaderMethod;
  * Header method to include a css file.
  */
 @ApplicationScoped
+@Log
 public class CSSIncludingHeaderMethod {
 
-   // The header method can apply to a list of portlets. If the asterisk is specified
-   // as first portlet name, the header method is executed for all portlets in
-   // the portlet application.
-   @HeaderMethod(portletNames="*")
-   public void header(HeaderRequest req, HeaderResponse resp) throws IOException {
+	// The header method can apply to a list of portlets. If the asterisk is specified
+	// as first portlet name, the header method is executed for all portlets in
+	// the portlet application.
+	@HeaderMethod(portletNames="*")
+	public void header(HeaderRequest req, HeaderResponse resp) throws IOException {
 
-      // Add link tag to head section to include the style sheet
+		// Add link tag to head section to include the style sheet
 
-      String contextRoot = req.getContextPath();
-      StringBuilder txt = new StringBuilder(128);
-      txt.append("<link href='").append(contextRoot);
-      txt.append("/css/infobox.css' rel='stylesheet' type='text/css'>");
+		String contextRoot = req.getContextPath();
+		StringBuilder txt = new StringBuilder(128);
+		txt.append("<link href='").append(contextRoot);
+		txt.append("/css/infobox.css' rel='stylesheet' type='text/css'>");
 
-      resp.addDependency("infobox", "org.apache.pluto", "0.3.0", txt.toString());
+		resp.addDependency("infobox", "org.apache.pluto", "0.3.0", txt.toString());
 
-   }
+	}
 
 }
