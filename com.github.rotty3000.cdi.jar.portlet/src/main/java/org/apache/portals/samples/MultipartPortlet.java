@@ -87,8 +87,7 @@ public class MultipartPortlet {
 	private static final String TFILE  = "uploadFile";
 
 	@Inject
-	@Reference
-	UserLocalService userLocalService;
+	Users users;
 
 	@ActionMethod(portletName = "MultipartPortlet")
 	public void handleDialog(ActionRequest req, ActionResponse resp) throws IOException, PortletException {
@@ -187,7 +186,7 @@ public class MultipartPortlet {
 	public void render(RenderRequest req, RenderResponse resp) throws PortletException, IOException {
 		List<String> lines = new ArrayList<String>();
 
-		logger.info("System has {} users.", userLocalService.getUsersCount());
+		logger.info("System has {} users.", users.getUsersCount());
 
 		@SuppressWarnings("unchecked")
 		List<String> actionlines = (List<String>) req.getPortletSession().getAttribute("lines");
