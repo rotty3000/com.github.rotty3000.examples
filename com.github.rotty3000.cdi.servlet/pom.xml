@@ -148,6 +148,7 @@
 								Bundle-SymbolicName: ${project.artifactId}-test
 								Fragment-Host: ${project.artifactId}
 								Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.Test}
+								-fixupmessages: "Host ${project.artifactId}=...";is:=ignore
 							]]></bnd>
 							<classesDir>${project.build.testOutputDirectory}</classesDir>
 							<outputDir>${project.build.testOutputDirectory}</outputDir>
