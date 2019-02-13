@@ -20,7 +20,7 @@
 @Beans
 @RequireGogo
 @Requirement(namespace = CDIConstants.CDI_EXTENSION_PROPERTY, name = "aries.cdi.http")
-package org.github.rotty3000.cdi.servlet;
+package org.github.rotty3000.cdi.jaxrs;
 
 import org.apache.felix.service.command.annotations.RequireGogo;
 import org.osgi.annotation.bundle.Requirement;

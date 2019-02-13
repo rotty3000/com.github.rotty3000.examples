@@ -17,12 +17,34 @@
  *  under the License.
  */
 
-@Beans
-@RequireGogo
-@Requirement(namespace = CDIConstants.CDI_EXTENSION_PROPERTY, name = "aries.cdi.http")
-package org.github.rotty3000.cdi.servlet;
+package org.github.rotty3000.cdi.jaxrs;
 
-import org.apache.felix.service.command.annotations.RequireGogo;
-import org.osgi.annotation.bundle.Requirement;
-import org.osgi.service.cdi.CDIConstants;
-import org.osgi.service.cdi.annotations.Beans;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+
+import org.apache.aries.cdi.extra.propertytypes.JaxrsResource;
+import org.osgi.service.cdi.annotations.Service;
+import org.osgi.service.log.Logger;
+
+@JaxrsResource
+@Service
+public class SimpleEndpoint {
+
+	@Inject
+	Logger logger;
+
+	@PostConstruct
+	void init() {
+		logger.info("Created {}", this);
+	}
+
+	@GET
+	@Path("/{name}")
+	public String sayHello(@PathParam("name") String name) {
+		return "Hello " + name;
+	}
+
+}

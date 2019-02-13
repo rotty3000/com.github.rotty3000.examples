@@ -17,7 +17,7 @@
  *  under the License.
  */
 
-package org.github.rotty3000.cdi.servlet;
+package org.github.rotty3000.cdi.jaxrs;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -44,6 +44,8 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.runtime.HttpServiceRuntime;
+import org.osgi.service.http.runtime.dto.ServletContextDTO;
+import org.osgi.service.http.runtime.dto.ServletDTO;
 import org.osgi.util.tracker.ServiceTracker;
 
 public class SampleTest {
@@ -70,44 +72,45 @@ public class SampleTest {
 
 	@Test
 	public void checkServletInit() throws Exception {
-		assertNotNull(SimpleServlet.servletContext.getPromise().timeout(5000).getValue());
+		ServletDTO servletDTO = getServletDTOByName("default", "cxf-servlet");
+		assertNotNull(servletDTO);
 	}
 
-	@Test
-	public void testResponse() throws Exception {
-		SimpleServlet.servletContext.getPromise().timeout(5000).getValue();
-		hsrTracker.waitForService(500);
-		hsrReference = hsrTracker.getServiceReference();
-
-		HttpClientBuilderFactory hcbf = hcbfTracker.waitForService(500);
-
-		HttpClientBuilder clientBuilder = hcbf.newBuilder();
-		CloseableHttpClient httpclient = clientBuilder.build();
-
-		CookieStore cookieStore = new BasicCookieStore();
-		HttpContext httpContext = new BasicHttpContext();
-		httpContext.setAttribute(HttpClientContext.COOKIE_STORE, cookieStore);
-
-		URI uri = new URIBuilder(getEndpoint()).
-				setPath("/s/foo").
-				setParameter("name", "test").
-				build();
-
-		HttpGet httpget = new HttpGet(uri);
-
-		String expected =
-			"<h2>It Works!</h2>\n" +
-			"<p>URI was: /s/foo<br/>\n" +
-			"<p>Parameters were: <br/>\n" +
-			"name = [test]<br/>\n" +
-			"</p>\n";
-
-		try (CloseableHttpResponse response = httpclient.execute(httpget, httpContext)) {
-			HttpEntity entity = response.getEntity();
-
-			assertEquals(expected, read(entity));
-		}
-	}
+//	@Test
+//	public void testResponse() throws Exception {
+//		SimpleServlet.servletContext.getPromise().timeout(5000).getValue();
+//		hsrTracker.waitForService(500);
+//		hsrReference = hsrTracker.getServiceReference();
+//
+//		HttpClientBuilderFactory hcbf = hcbfTracker.waitForService(500);
+//
+//		HttpClientBuilder clientBuilder = hcbf.newBuilder();
+//		CloseableHttpClient httpclient = clientBuilder.build();
+//
+//		CookieStore cookieStore = new BasicCookieStore();
+//		HttpContext httpContext = new BasicHttpContext();
+//		httpContext.setAttribute(HttpClientContext.COOKIE_STORE, cookieStore);
+//
+//		URI uri = new URIBuilder(getEndpoint()).
+//				setPath("/s/foo").
+//				setParameter("name", "test").
+//				build();
+//
+//		HttpGet httpget = new HttpGet(uri);
+//
+//		String expected =
+//			"<h2>It Works!</h2>\n" +
+//			"<p>URI was: /s/foo<br/>\n" +
+//			"<p>Parameters were: <br/>\n" +
+//			"name = [test]<br/>\n" +
+//			"</p>\n";
+//
+//		try (CloseableHttpResponse response = httpclient.execute(httpget, httpContext)) {
+//			HttpEntity entity = response.getEntity();
+//
+//			assertEquals(expected, read(entity));
+//		}
+//	}
 
 	String read(HttpEntity entity) throws Exception {
 		if (entity == null) {
@@ -131,6 +134,50 @@ public class SampleTest {
 		}
 
 		return endpoints[0];
+	}
+
+
+	protected ServletDTO getServletDTOByName(String context, String name) {
+		ServletContextDTO servletContextDTO = getServletContextDTOByName(context);
+
+		if (servletContextDTO == null) {
+			return null;
+		}
+
+		for (ServletDTO servletDTO : servletContextDTO.servletDTOs) {
+			if (name.equals(servletDTO.name)) {
+				return servletDTO;
+			}
+		}
+
+		return null;
+	}
+
+	protected ServletContextDTO getServletContextDTOByName(String name) {
+		for (ServletContextDTO servletContextDTO : getServletContextDTOs()) {
+			if (name.equals(servletContextDTO.name)) {
+				return servletContextDTO;
+			}
+		}
+
+		return null;
+	}
+
+	protected ServletContextDTO[] getServletContextDTOs() {
+		return getHttpServiceRuntime().getRuntimeDTO().servletContextDTOs;
+	}
+
+	protected HttpServiceRuntime getHttpServiceRuntime() {
+		ServiceReference<HttpServiceRuntime> serviceReference =
+				getBundleContext().getServiceReference(HttpServiceRuntime.class);
+
+		assertNotNull(serviceReference);
+
+		return getBundleContext().getService(serviceReference);
+	}
+
+	protected BundleContext getBundleContext() {
+		return FrameworkUtil.getBundle(getClass()).getBundleContext();
 	}
 
 }
