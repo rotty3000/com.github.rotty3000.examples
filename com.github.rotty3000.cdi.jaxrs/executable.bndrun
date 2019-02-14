@@ -43,8 +43,8 @@
 	org.apache.aries.cdi.extender;version='[1.0.1,1.0.2)',\
 	org.apache.aries.cdi.extension.http;version='[1.0.1,1.0.2)',\
 	org.apache.aries.cdi.extra;version='[1.0.1,1.0.2)',\
-	org.apache.aries.javax.jax.rs-api;version='[1.0.3,1.0.4)',\
-	org.apache.aries.jax.rs.whiteboard;version='[1.0.3,1.0.4)',\
+	org.apache.aries.javax.jax.rs-api;version='[1.0.4,1.0.5)',\
+	org.apache.aries.jax.rs.whiteboard;version='[1.0.4,1.0.5)',\
 	org.apache.aries.spifly.dynamic.framework.extension;version='[1.2.0,1.2.1)',\
 	org.apache.felix.configadmin;version='[1.9.10,1.9.11)',\
 	org.apache.felix.gogo.command;version='[1.1.0,1.1.1)',\
@@ -63,4 +63,4 @@
 	org.osgi.service.cdi;version='[1.0.0,1.0.1)',\
 	org.osgi.service.jaxrs;version='[1.0.0,1.0.1)',\
 	org.osgi.util.function;version='[1.1.0,1.1.1)',\
-	org.osgi.util.promise;version='[1.1.0,1.1.1)'
+	org.osgi.util.promise;version='[1.1.0,1.1.1)',\

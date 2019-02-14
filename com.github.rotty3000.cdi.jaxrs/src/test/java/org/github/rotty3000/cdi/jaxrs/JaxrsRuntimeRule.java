@@ -19,13 +19,12 @@
 
 package org.github.rotty3000.cdi.jaxrs;
 
-import java.util.Dictionary;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.ws.rs.client.ClientBuilder;
 
-import org.osgi.framework.ServiceReference;
 import org.osgi.framework.dto.ServiceReferenceDTO;
 import org.osgi.service.jaxrs.runtime.JaxrsServiceRuntime;
 import org.osgi.service.jaxrs.runtime.dto.ApplicationDTO;
@@ -92,9 +91,7 @@ public class JaxrsRuntimeRule extends RuntimeRule<JaxrsServiceRuntime> {
 	}
 
 	public String getEndpoint() {
-		ServiceReference<JaxrsServiceRuntime> reference = reference();
-
-		Dictionary<String, Object> properties = reference.getProperties();
+		Map<String, Object> properties = getServiceDTO().properties;
 
 		@SuppressWarnings("unchecked")
 		List<String> endpoints = (List<String>)properties.get("osgi.jaxrs.endpoint");
@@ -136,12 +133,7 @@ public class JaxrsRuntimeRule extends RuntimeRule<JaxrsServiceRuntime> {
 
 	private ApplicationDTO getApplicationDTOByName0(String name) {
 		if (".default".equals(name)) {
-			try {
-				return service().getRuntimeDTO().defaultApplication;
-			}
-			catch (NullPointerException npe) {
-				return null;
-			}
+			return service().getRuntimeDTO().defaultApplication;
 		}
 
 		for (ApplicationDTO applicationDTO : getApplicationDTOs0()) {
