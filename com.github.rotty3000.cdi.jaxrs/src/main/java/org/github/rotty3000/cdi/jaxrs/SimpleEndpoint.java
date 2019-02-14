@@ -25,11 +25,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
+import org.apache.aries.cdi.extra.propertytypes.JaxrsName;
 import org.apache.aries.cdi.extra.propertytypes.JaxrsResource;
 import org.osgi.service.cdi.annotations.Service;
 import org.osgi.service.log.Logger;
 
 @JaxrsResource
+@JaxrsName("simpleEndpoint")
 @Service
 public class SimpleEndpoint {
 
