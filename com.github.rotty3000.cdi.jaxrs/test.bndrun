@@ -66,5 +66,5 @@
 	org.osgi.util.function;version='[1.1.0,1.1.1)',\
 	org.osgi.util.promise;version='[1.1.0,1.1.1)',\
 
--runtrace: true
+#-runtrace: true
 #-runvm: -ea, -Xdebug, "-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000"
