@@ -30,7 +30,7 @@
 	<!-- <logger name="Events.Service.org.apache.aries.cdi" level="INFO"/> -->
 	<!-- <logger name="org.apache.aries.cdi" level="DEBUG"/> -->
 
-	<logger name="org.eclipse" level="ERROR"/>
+	<logger name="org.eclipse.jetty" level="INFO"/>
 	<logger name="org.jboss" level="ERROR"/>
 
 	<root level="WARN">

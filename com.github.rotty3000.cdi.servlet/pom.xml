@@ -23,15 +23,11 @@
 	<groupId>org.github.rotty3000</groupId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name></name>
-	<description></description>
 
 	<properties>
-		<bnd.version>4.2.0-SNAPSHOT</bnd.version>
-		<executable.name>executable</executable.name>
-
+		<bnd.version>4.3.0-SNAPSHOT</bnd.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
@@ -77,7 +73,7 @@
 		<dependency>
 			<groupId>biz.aQute.bnd</groupId>
 			<artifactId>biz.aQute.junit</artifactId>
-			<version>4.2.0-SNAPSHOT</version>
+			<version>${bnd.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -94,13 +90,35 @@
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.service.http.whiteboard</artifactId>
+			<artifactId>osgi.core</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.equinox</groupId>
+			<artifactId>org.eclipse.equinox.http.servlet</artifactId>
+			<version>1.6.0-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/../tmp-repo/org/eclipse/equinox/org.eclipse.equinox.http.servlet/1.6.0-SNAPSHOT/org.eclipse.equinox.http.servlet-1.6.0-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.equinox</groupId>
+			<artifactId>org.eclipse.equinox.http.jetty</artifactId>
+			<version>3.7.0-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/../tmp-repo/org/eclipse/equinox/org.eclipse.equinox.http.jetty/3.7.0-SNAPSHOT/org.eclipse.equinox.http.jetty-3.7.0-SNAPSHOT.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
-			<artifactId>osgi.core</artifactId>
-			<scope>test</scope>
+			<artifactId>org.osgi.service.http</artifactId>
+			<version>1.2.1</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.service.http.whiteboard</artifactId>
+			<version>1.1.0</version><!--$NO-MVN-MAN-VER$-->
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
@@ -125,6 +143,30 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.0.0-M2</version>
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+						<goal>enforce</goal>
+						</goals>
+						<configuration>
+						<rules>
+							<requireJavaVersion>
+								<version>11</version>
+							</requireJavaVersion>
+							<requireMavenVersion>
+								<version>3.2.5</version>
+							</requireMavenVersion>
+						</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>biz.aQute.bnd</groupId>
 				<artifactId>bnd-maven-plugin</artifactId>
@@ -161,18 +203,38 @@
 				<groupId>biz.aQute.bnd</groupId>
 				<artifactId>bnd-resolver-maven-plugin</artifactId>
 				<version>${bnd.version}</version>
+				<configuration>
+					<failOnChanges>false</failOnChanges>
+					<includeDependencyManagement>true</includeDependencyManagement>
+				</configuration>
 				<executions>
 					<execution>
+						<id>felix</id>
 						<phase>package</phase>
 						<goals>
 							<goal>resolve</goal>
 						</goals>
 						<configuration>
-							<failOnChanges>false</failOnChanges>
-							<includeDependencyManagement>true</includeDependencyManagement>
 							<bndruns>
-								<bndrun>${executable.name}.bndrun</bndrun>
+								<bndrun>felixhttp.bndrun</bndrun>
 							</bndruns>
+						</configuration>
+					</execution>
+					<execution>
+						<id>equinox</id>
+						<phase>package</phase>
+						<goals>
+							<goal>resolve</goal>
+						</goals>
+						<configuration>
+							<bndruns>
+								<bndrun>equinoxhttp.bndrun</bndrun>
+							</bndruns>
+							<scopes>
+								<scope>compile</scope>
+								<scope>runtime</scope>
+								<scope>system</scope>
+							</scopes>
 						</configuration>
 					</execution>
 					<!-- Integration Test Configuration -->
@@ -183,8 +245,6 @@
 							<goal>resolve</goal>
 						</goals>
 						<configuration>
-							<failOnChanges>false</failOnChanges>
-							<includeDependencyManagement>true</includeDependencyManagement>
 							<scopes>
 								<scope>compile</scope>
 								<scope>runtime</scope>
@@ -210,8 +270,14 @@
 					<includeDependencyManagement>true</includeDependencyManagement>
 					<resolve>false</resolve>
 					<bndruns>
-						<bndrun>${executable.name}.bndrun</bndrun>
+						<bndrun>felixhttp.bndrun</bndrun>
+						<bndrun>equinoxhttp.bndrun</bndrun>
 					</bndruns>
+					<scopes>
+						<scope>compile</scope>
+						<scope>runtime</scope>
+						<scope>system</scope>
+					</scopes>
 				</configuration>
 				<executions>
 					<execution>
@@ -221,17 +287,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
-				<configuration>
-					<source>${maven.compiler.source}</source>
-					<target>${maven.compiler.target}</target>
-					<showWarnings>true</showWarnings>
-					<showDeprecation>true</showDeprecation>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>biz.aQute.bnd</groupId>
@@ -262,9 +317,46 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-run-maven-plugin</artifactId>
+				<configuration>
+					<includeDependencyManagement>true</includeDependencyManagement>
+				</configuration>
+				<executions>
+					<execution>
+						<id>felix</id>
+						<configuration>
+							<bndrun>felixhttp.bndrun</bndrun>
+						</configuration>
+					</execution>
+					<execution>
+						<id>equinox</id>
+						<configuration>
+							<bndrun>equinoxhttp.bndrun</bndrun>
+							<scopes>
+								<scope>compile</scope>
+								<scope>runtime</scope>
+								<scope>system</scope>
+							</scopes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.0.1</version>
+				<version>3.1.1</version>
 				<executions>
 					<execution>
 						<id>default-jar</id>
@@ -293,7 +385,7 @@
 
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.1</version>
+				<version>3.0.0-M3</version>
 				<executions>
 					<execution>
 						<id>default-test</id>
@@ -303,6 +395,7 @@
 						</goals>
 						<configuration>
 							<skip>true</skip>
+							<failIfNoTests>false</failIfNoTests>
 						</configuration>
 					</execution>
 				</executions>
@@ -322,6 +415,14 @@
 		<repository>
 			<id>osgi-snapshots</id>
 			<url>https://oss.sonatype.org/content/repositories/osgi-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>bnd-snapshots</id>
+			<url>https://bndtools.jfrog.io/bndtools/libs-snapshot/</url>
+			<layout>default</layout>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
