@@ -1,0 +1,21 @@
+-standalone: target/index.xml
+
+-resolve.effective: active
+
+-runfw: org.apache.felix.framework
+
+-runee: JavaSE-1.8
+-runvm: -ea,\
+	-Dorg.slf4j.simpleLogger.defaultLogLevel=debug,\
+	-Dlogback.configurationFile=${.}/src/test/resources/logback/logback-test.xml
+
+-runproperties: \
+	posh.home=${.}/src/test/resources/,\
+	test.resources=${.}/src/test/resources/
+
+-runsystempackages: sun.reflect
+
+-runrequires: bnd.identity;id='com.github.rotty3000.bnd3036'
+-runbundles: \
+	com.github.rotty3000.bnd3036;version='[0.0.1,0.0.2)',\
+	biz.aQute.junit;version='[4.3.0,4.3.1)'
