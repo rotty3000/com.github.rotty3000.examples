@@ -22,7 +22,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
-		<bnd.version>4.2.0-SNAPSHOT</bnd.version>
+		<bnd.version>4.1.0</bnd.version>
 		<java.version>8</java.version>
 
 		<maven.compiler.source>${java.version}</maven.compiler.source>
