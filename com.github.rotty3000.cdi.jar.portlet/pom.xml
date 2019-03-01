@@ -180,8 +180,8 @@
 			</releases>
 		</repository>
 		<repository>
-			<id>osgi-releases-and-snapshots</id>
-			<url>https://oss.sonatype.org/content/groups/osgi/</url>
+			<id>osgi-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/osgi-snapshots/</url>
 			<layout>default</layout>
 			<releases>
 				<enabled>false</enabled>
