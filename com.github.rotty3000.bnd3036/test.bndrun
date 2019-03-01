@@ -18,4 +18,4 @@
 -runrequires: bnd.identity;id='com.github.rotty3000.bnd3036'
 -runbundles: \
 	com.github.rotty3000.bnd3036;version='[0.0.1,0.0.2)',\
-	biz.aQute.junit;version='[4.3.0,4.3.1)'
+	biz.aQute.junit;version='[4.2.0,4.2.1)'
