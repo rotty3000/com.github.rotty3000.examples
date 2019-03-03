@@ -20,6 +20,7 @@
 	<groupId>com.github.rotty3000.bnd3036</groupId>
 	<artifactId>com.github.rotty3000.bnd3036</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
 	<properties>
 		<bnd.version>4.1.0</bnd.version>
@@ -30,109 +31,22 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>biz.aQute.bnd</groupId>
-			<artifactId>biz.aQute.junit</artifactId>
-			<version>${bnd.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.apache.felix.framework</artifactId>
-			<version>5.6.10</version>
-			<scope>runtime</scope>
-		</dependency>
-	</dependencies>
+	<modules>
+		<module>m1</module>
+		<module>m2</module>
+	</modules>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>biz.aQute.bnd</groupId>
-				<artifactId>bnd-maven-plugin</artifactId>
-				<version>${bnd.version}</version>
-				<executions>
-					<execution>
-						<id>bnd-process</id>
-						<goals>
-							<goal>bnd-process</goal>
-						</goals>
-						<configuration>
-							<bnd><![CDATA[
-								Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.Test}
-							]]></bnd>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>biz.aQute.bnd</groupId>
-				<artifactId>bnd-indexer-maven-plugin</artifactId>
-				<version>${bnd.version}</version>
-				<executions>
-					<execution>
-						<id>index</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>index</goal>
-						</goals>
-						<configuration>
-							<attach>false</attach>
-							<includeGzip>false</includeGzip>
-							<includeJar>true</includeJar>
-							<indexName>test</indexName>
-							<scopes>
-								<scope>compile</scope>
-								<scope>runtime</scope>
-								<scope>test</scope>
-							</scopes>
-							<localURLs>REQUIRED</localURLs>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>biz.aQute.bnd</groupId>
-				<artifactId>bnd-testing-maven-plugin</artifactId>
-				<version>${bnd.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>testing</goal>
-						</goals>
-						<configuration>
-							<resolve>true</resolve>
-							<failOnChanges>true</failOnChanges>
-							<bndruns>
-								<bndrun>test.bndrun</bndrun>
-							</bndruns>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
-				<configuration>
-					<source>${maven.compiler.source}</source>
-					<target>${maven.compiler.target}</target>
-					<showWarnings>true</showWarnings>
-					<showDeprecation>true</showDeprecation>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.0.1</version>
-				<configuration>
-					<archive>
-						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-					</archive>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>org.apache.felix.gogo.bom</artifactId>
+				<version>1.0.2</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<repositories>
 		<repository>
