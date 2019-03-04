@@ -1,0 +1,4 @@
+--module-path /usr/lib/jvm/zulu-11-amd64/jmods/:./target/equinoxhttp.jar
+--add-modules equinoxhttp,jdk.jdwp.agent
+--output target/jlink/equinoxhttp
+--compress=2

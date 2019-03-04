@@ -1,0 +1,4 @@
+--module-path /usr/lib/jvm/zulu-11-amd64/jmods/:./target/felixhttp.jar
+--add-modules felixhttp,jdk.jdwp.agent
+--output target/jlink/felixhttp
+--compress=2
