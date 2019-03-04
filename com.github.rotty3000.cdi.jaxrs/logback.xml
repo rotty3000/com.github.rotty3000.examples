@@ -30,11 +30,12 @@
 	<!-- <logger name="Events.Service.org.apache.aries.cdi" level="INFO"/> -->
 	<!-- <logger name="org.apache.aries.cdi" level="DEBUG"/> -->
 
+	<logger name="org.eclipse.jetty" level="INFO"/>
 	<logger name="org.eclipse" level="ERROR"/>
 	<logger name="org.jboss" level="ERROR"/>
 	<logger name="org.apache.cxf" level="ERROR"/>
 
-	<root level="DEBUG">
+	<root level="WARN">
 		<appender-ref ref="STDOUT" />
 	</root>
 </configuration>

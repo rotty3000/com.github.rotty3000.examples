@@ -104,31 +104,31 @@ public class JaxrsRuntimeRule extends RuntimeRule<JaxrsServiceRuntime> {
 	}
 
 	public ExtensionDTO getExtensionDTOByName(final String application, final String name) {
-		return until(b -> getExtensionDTOByName0(application, name), Objects::nonNull);
+		return awaitChangeCount(b -> getExtensionDTOByName0(application, name));
 	}
 
 	public FailedApplicationDTO[] getFailedApplicationDTOs() {
-		return until(b -> getFailedApplicationDTOs0(), Objects::nonNull);
+		return awaitChangeCount(b -> getFailedApplicationDTOs0());
 	}
 
 	public FailedExtensionDTO[] getFailedExtensionDTOs() {
-		return until(b -> getFailedExtensionDTOs0(), Objects::nonNull);
+		return awaitChangeCount(b -> getFailedExtensionDTOs0());
 	}
 
 	public FailedResourceDTO[] getFailedResourceDTOs() {
-		return until(b -> getFailedResourceDTOs0(), Objects::nonNull);
+		return awaitChangeCount(b -> getFailedResourceDTOs0());
 	}
 
 	public ResourceDTO getResourceDTOByName(final String application, final String name) {
-		return until(b -> getResourceDTOByName0(application, name), Objects::nonNull);
+		return awaitChangeCount(b -> getResourceDTOByName0(application, name));
 	}
 
 	public ResourceMethodInfoDTO[] getResourceMethodInfoDTOs(final String application, final String name) {
-		return until(b -> getResourceMethodInfoDTOs(application), Objects::nonNull);
+		return awaitChangeCount(b -> getResourceMethodInfoDTOs(application));
 	}
 
 	public ServiceReferenceDTO getServiceDTO() {
-		return until(b -> getServiceDTO0(), Objects::nonNull);
+		return awaitChangeCount(b -> getServiceDTO0());
 	}
 
 	private ApplicationDTO getApplicationDTOByName0(String name) {

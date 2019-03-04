@@ -19,8 +19,10 @@
 
 package org.github.rotty3000.cdi.jaxrs;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
@@ -93,7 +95,7 @@ public class RuntimeRule<T> extends OSGiRule<T> {
 	 * @throws InterruptedException if task is interrupted
 	 */
 	public <R> R awaitChangeCount(Function<BundleContext, R> operation) {
-		return awaitChangeCount(operation, 100);
+		return awaitChangeCount(operation, Objects::nonNull, 10);
 	}
 
 	/**
@@ -101,14 +103,50 @@ public class RuntimeRule<T> extends OSGiRule<T> {
 	 *
 	 * @param <R> the type returned by the operation
 	 * @param operation the operation to execute
+	 * @param predicate the predicate to be satisfied
+	 * @return the result once the {@code service.changecount} has been updated
+	 * @throws AssertionError if {@code service.changecount} hasn't updated before timeout
+	 * @throws InterruptedException if task is interrupted
+	 */
+	public <R> R awaitChangeCount(Function<BundleContext, R> operation, Predicate<R> predicate) {
+		return awaitChangeCount(operation, predicate, 10);
+	}
+
+	/**
+	 * Wait for specified operation to result in an update to {@code service.changecount}.
+	 *
+	 * @param <R> the type returned by the operation
+	 * @param operation the operation to execute
+	 * @param predicate the predicate to be satisfied
 	 * @param maxAttempts the maximum number of attempts to check for update to {@code service.changecount}
 	 * @return the result once the {@code service.changecount} has been updated
 	 * @throws AssertionError if {@code service.changecount} hasn't updated before maxAttempts
 	 * @throws InterruptedException if task is interrupted
 	 */
-	public <R> R awaitChangeCount(Function<BundleContext, R> operation, int maxAttempts) {
-		final long previousCount = serivceChangeCount.get();
-		return await(operation, r -> previousCount != serivceChangeCount.get(), maxAttempts);
+	public <R> R awaitChangeCount(Function<BundleContext, R> operation, Predicate<R> predicate, int maxAttempts) {
+		long previousCount = serivceChangeCount.get();
+		long waits = 10;
+		R result;
+		while (!predicate.test(result = operation.apply(context()))) {
+			if (maxAttempts <= 0) {
+				throw new AssertionError("Max attempts exceeded");
+			}
+			while (previousCount == serivceChangeCount.get()) {
+				if (waits <= 0) {
+					break;
+				}
+				try {
+					Thread.sleep(20L);
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+				waits--;
+			}
+			previousCount = serivceChangeCount.get();
+			waits = 10;
+			maxAttempts--;
+		}
+		return result;
 	}
 
 }
