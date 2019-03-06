@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>org.eclipse.equinox</groupId>
+  <artifactId>org.eclipse.equinox.http.jetty</artifactId>
+  <version>3.7.0-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <localCopy>true</localCopy>
+    </snapshot>
+    <lastUpdated>20190306182832</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <classifier>sources</classifier>
+        <extension>jar</extension>
+        <value>3.7.0-SNAPSHOT</value>
+        <updated>20190306182832</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>3.7.0-SNAPSHOT</value>
+        <updated>20190306182829</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>3.7.0-SNAPSHOT</value>
+        <updated>20190306182829</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>
