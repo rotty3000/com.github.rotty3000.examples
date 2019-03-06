@@ -19,8 +19,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>org.github.rotty3000.cdi.servlet</artifactId>
-	<groupId>org.github.rotty3000</groupId>
+	<artifactId>com.github.rotty3000.cdi.servlet</artifactId>
+	<groupId>com.github.rotty3000</groupId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
