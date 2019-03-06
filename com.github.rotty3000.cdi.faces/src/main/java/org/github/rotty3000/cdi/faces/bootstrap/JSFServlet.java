@@ -6,6 +6,7 @@ import javax.faces.webapp.FacesServlet;
 import javax.inject.Inject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 import org.osgi.service.log.Logger;
 
 @HttpWhiteboardContextSelect("(" + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME + "=JSF)")
+@MultipartConfig
 @WebServlet(name = "Faces Servlet", urlPatterns = {"/faces/*", "*.jsf", "*.faces", "*.xhtml"}, asyncSupported = true)
 public class JSFServlet extends HttpServlet {
 
