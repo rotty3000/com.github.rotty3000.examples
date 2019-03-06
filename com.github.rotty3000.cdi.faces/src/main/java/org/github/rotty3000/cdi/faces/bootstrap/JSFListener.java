@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextAttributeEvent;
 import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.ServletContextEvent;
@@ -131,7 +132,9 @@ public class JSFListener extends ConfigureListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		sce.getServletContext().setAttribute(RIConstants.ANNOTATED_CLASSES, managedBeans);
+		ServletContext servletContext = sce.getServletContext();
+		servletContext.setAttribute(RIConstants.ANNOTATED_CLASSES, managedBeans);
+		servletContext.setAttribute(RIConstants.FACES_INITIALIZER_MAPPINGS_ADDED, Boolean.TRUE);
 
 		try (WithLoader withLoader = new WithLoader()) {
 			super.contextInitialized(sce);
