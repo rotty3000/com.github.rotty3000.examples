@@ -3,6 +3,8 @@ package org.github.rotty3000.cdi.faces.bootstrap;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.enterprise.inject.spi.BeanManager;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextAttributeEvent;
@@ -42,9 +44,11 @@ import com.sun.faces.config.ConfigureListener;
 public class JSFListener extends ConfigureListener {
 
 	private final Set<Class<?>> managedBeans = new HashSet<>();
+	private final BeanManager beanManager;
 
 	@Inject
-	public JSFListener(BundleContext bundleContext) {
+	public JSFListener(BeanManager beanManager, BundleContext bundleContext) {
+		this.beanManager = beanManager;
 		String managedBeansHeader = bundleContext.getBundle().getHeaders().get("Managed-Beans");
 
 		if (managedBeansHeader != null) {
@@ -138,6 +142,7 @@ public class JSFListener extends ConfigureListener {
 
 		try (WithLoader withLoader = new WithLoader()) {
 			super.contextInitialized(sce);
+			FacesContext.getCurrentInstance().getApplication().addELResolver(beanManager.getELResolver());
 		}
 	}
 
