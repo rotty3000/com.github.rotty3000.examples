@@ -25,6 +25,7 @@ public class JSFServlet extends HttpServlet {
 	private static final long serialVersionUID = 1801380820576021288L;
 
 	private FacesServlet facesServlet;
+	private volatile boolean init = false;
 
 	@Inject
 	private Logger logger;
@@ -42,6 +43,7 @@ public class JSFServlet extends HttpServlet {
 	public void init(ServletConfig servletConfig) throws ServletException {
 		try (WithLoader withLoader = new WithLoader()) {
 			facesServlet.init(servletConfig);
+			init = true;
 		}
 	}
 
@@ -49,7 +51,9 @@ public class JSFServlet extends HttpServlet {
 	public void destroy() {
 		try (WithLoader withLoader = new WithLoader()) {
 			try {
-				facesServlet.destroy();
+				if (init) {
+					facesServlet.destroy();
+				}
 			}
 			catch (Throwable t) {
 				logger.error("Error on destroy", t);
