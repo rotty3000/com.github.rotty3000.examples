@@ -14,7 +14,7 @@ import com.sun.faces.vendor.WebContainerInjectionProvider;
 
 public class JSFLoader extends URLClassLoader {
 
-	public static final JSFLoader INSTANCE = new JSFLoader();
+	static final JSFLoader INSTANCE = new JSFLoader();
 
 	JSFLoader() {
 		super(new URL[0], JSFLoader.class.getClassLoader());
@@ -104,7 +104,7 @@ public class JSFLoader extends URLClassLoader {
 		public WithLoader() {
 			Thread currentThread = Thread.currentThread();
 			original = currentThread.getContextClassLoader();
-			currentThread.setContextClassLoader(JSFLoader.INSTANCE);
+			currentThread.setContextClassLoader(INSTANCE);
 		}
 
 		@Override
