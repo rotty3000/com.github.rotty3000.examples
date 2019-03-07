@@ -139,6 +139,7 @@ public class JSFListener extends ConfigureListener {
 		ServletContext servletContext = sce.getServletContext();
 		servletContext.setAttribute(RIConstants.ANNOTATED_CLASSES, managedBeans);
 		servletContext.setAttribute(RIConstants.FACES_INITIALIZER_MAPPINGS_ADDED, Boolean.TRUE);
+		servletContext.setAttribute(RIConstants.CDI_BEAN_MANAGER, beanManager);
 
 		try (WithLoader withLoader = new WithLoader()) {
 			super.contextInitialized(sce);
