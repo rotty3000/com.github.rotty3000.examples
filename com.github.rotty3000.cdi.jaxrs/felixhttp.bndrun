@@ -36,7 +36,7 @@
 	org.apache.felix.logback,\
 	slf4j.api
 
--runrequires: osgi.identity;filter:='(osgi.identity=org.github.rotty3000.cdi.jaxrs)'
+-runrequires: osgi.identity;filter:='(osgi.identity=com.github.rotty3000.cdi.jaxrs)'
 
 -runblacklist: \
 	osgi.identity;filter:='(osgi.identity=com.eclipse.equinox.http.servlet)',\
