@@ -10,6 +10,10 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
+java: ${env.JAVA_HOME}bin/java
+
+#-runjdb: 8000
+
 -module: felixhttp;access=OPEN;addModule="java.logging,java.management,java.naming,java.security.jgss,java.xml"
 
 -runfw: org.eclipse.osgi
