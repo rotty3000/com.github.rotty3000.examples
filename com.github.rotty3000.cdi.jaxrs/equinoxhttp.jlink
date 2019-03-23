@@ -2,3 +2,5 @@
 --add-modules equinoxhttp,jdk.jdwp.agent
 --output target/jlink/equinoxhttp
 --compress=2
+--no-header-files
+-v

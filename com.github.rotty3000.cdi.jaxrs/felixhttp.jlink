@@ -2,3 +2,5 @@
 --add-modules felixhttp,jdk.jdwp.agent
 --output target/jlink/felixhttp
 --compress=2
+--no-header-files
+-v

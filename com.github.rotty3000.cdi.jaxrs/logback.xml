@@ -34,6 +34,7 @@
 	<logger name="org.eclipse" level="ERROR"/>
 	<logger name="org.jboss" level="ERROR"/>
 	<logger name="org.apache.cxf" level="ERROR"/>
+	<logger name="org.github.rotty3000.cdi.jaxrs" level="DEBUG" />
 
 	<root level="WARN">
 		<appender-ref ref="STDOUT" />
