@@ -12,9 +12,11 @@
 
 #-runjdb: 8000
 
+java: ${if;${env;JAVA_HOME};${env;JAVA_HOME}/bin/java;${java.home}/bin/java}
+
 -runfw: org.eclipse.osgi
 
--runee: JavaSE-11
+-runee: JavaSE-1.8
 
 -resolve.effective: resolve, active
 
@@ -42,14 +44,9 @@
 	osgi.identity;filter:='(osgi.identity=org.jboss.spec.javax.el.jboss-el-api_3.0_spec)'
 
 -runbundles: \
-	biz.aQute.junit;version='[4.3.0,4.3.1)',\
+	biz.aQute.junit;version='[4.2.0,4.2.1)',\
 	com.github.rotty3000.cdi.jaxrs-test;version='[0.0.1,0.0.2)',\
 	com.github.rotty3000.cdi.jaxrs;version='[0.0.1,0.0.2)',\
-	com.sun.activation.jakarta.activation;version='[1.2.1,1.2.2)',\
-	jakarta.activation-api;version='[1.2.1,1.2.2)',\
-	jakarta.xml.bind-api;version='[2.3.2,2.3.3)',\
-	jakarta.xml.soap-api;version='[1.4.1,1.4.2)',\
-	jakarta.xml.ws-api;version='[2.3.2,2.3.3)',\
 	jboss-classfilewriter;version='[1.2.3,1.2.4)',\
 	org.apache.aries.cdi.extender;version='[1.0.1,1.0.2)',\
 	org.apache.aries.cdi.extension.http;version='[1.0.1,1.0.2)',\
@@ -74,4 +71,4 @@
 	org.osgi.service.http.whiteboard;version='[1.1.0,1.1.1)',\
 	org.osgi.service.jaxrs;version='[1.0.0,1.0.1)',\
 	org.osgi.util.function;version='[1.1.0,1.1.1)',\
-	org.osgi.util.promise;version='[1.1.0,1.1.1)'
+	org.osgi.util.promise;version='[1.1.0,1.1.1)',\

@@ -25,9 +25,9 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<bnd.version>4.3.0-SNAPSHOT</bnd.version>
+		<bnd.version>4.2.0</bnd.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
@@ -95,18 +95,16 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.eclipse.equinox</groupId>
+			<groupId>org.eclipse.platform</groupId>
 			<artifactId>org.eclipse.equinox.http.servlet</artifactId>
-			<version>1.6.0-SNAPSHOT</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/../tmp-repo/org/eclipse/equinox/org.eclipse.equinox.http.servlet/1.6.0-SNAPSHOT/org.eclipse.equinox.http.servlet-1.6.0-SNAPSHOT.jar</systemPath>
+			<version>1.6.0</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.equinox</groupId>
+			<groupId>org.eclipse.platform</groupId>
 			<artifactId>org.eclipse.equinox.http.jetty</artifactId>
-			<version>3.7.0-SNAPSHOT</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/../tmp-repo/org/eclipse/equinox/org.eclipse.equinox.http.jetty/3.7.0-SNAPSHOT/org.eclipse.equinox.http.jetty-3.7.0-SNAPSHOT.jar</systemPath>
+			<version>3.7.0</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
@@ -127,7 +125,7 @@
 			<dependency>
 				<groupId>org.apache.aries.cdi</groupId>
 				<artifactId>org.apache.aries.cdi.bom</artifactId>
-				<version>1.0.0</version>
+				<version>1.0.1</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -156,7 +154,7 @@
 						<configuration>
 						<rules>
 							<requireJavaVersion>
-								<version>11</version>
+								<version>${java.version}</version>
 							</requireJavaVersion>
 							<requireMavenVersion>
 								<version>3.2.5</version>
@@ -230,11 +228,6 @@
 							<bndruns>
 								<bndrun>equinoxhttp.bndrun</bndrun>
 							</bndruns>
-							<scopes>
-								<scope>compile</scope>
-								<scope>runtime</scope>
-								<scope>system</scope>
-							</scopes>
 						</configuration>
 					</execution>
 					<!-- Integration Test Configuration -->
@@ -273,11 +266,6 @@
 						<bndrun>felixhttp.bndrun</bndrun>
 						<bndrun>equinoxhttp.bndrun</bndrun>
 					</bndruns>
-					<scopes>
-						<scope>compile</scope>
-						<scope>runtime</scope>
-						<scope>system</scope>
-					</scopes>
 				</configuration>
 				<executions>
 					<execution>
@@ -310,6 +298,7 @@
 				</configuration>
 				<executions>
 					<execution>
+						<id>testing</id>
 						<goals>
 							<goal>testing</goal>
 						</goals>
@@ -319,6 +308,7 @@
 			<plugin>
 				<groupId>biz.aQute.bnd</groupId>
 				<artifactId>bnd-run-maven-plugin</artifactId>
+				<version>${bnd.version}</version>
 				<configuration>
 					<includeDependencyManagement>true</includeDependencyManagement>
 				</configuration>
@@ -333,11 +323,6 @@
 						<id>equinox</id>
 						<configuration>
 							<bndrun>equinoxhttp.bndrun</bndrun>
-							<scopes>
-								<scope>compile</scope>
-								<scope>runtime</scope>
-								<scope>system</scope>
-							</scopes>
 						</configuration>
 					</execution>
 				</executions>
@@ -402,42 +387,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<repositories>
-		<repository>
-			<id>apache.snapshots</id>
-			<name>Apache Snapshot Repository</name>
-			<url>http://repository.apache.org/snapshots</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>osgi-snapshots</id>
-			<url>https://oss.sonatype.org/content/repositories/osgi-snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>bnd-snapshots</id>
-			<url>https://bndtools.jfrog.io/bndtools/libs-snapshot/</url>
-			<layout>default</layout>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>bnd-snapshots</id>
-			<url>https://bndtools.jfrog.io/bndtools/libs-snapshot/</url>
-			<layout>default</layout>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</pluginRepository>
-	</pluginRepositories>
 
 </project>

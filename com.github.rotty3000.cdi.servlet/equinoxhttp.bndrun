@@ -12,9 +12,11 @@
 
 #-runjdb: 8000
 
+java: ${if;${env;JAVA_HOME};${env;JAVA_HOME}/bin/java;${java.home}/bin/java}
+
 -runfw: org.eclipse.osgi
 
--runee: JavaSE-11
+-runee: JavaSE-1.8
 
 -resolve.effective: resolve, active
 
@@ -46,9 +48,9 @@
 -runbundles: \
 	com.github.rotty3000.cdi.servlet;version='[0.0.1,0.0.2)',\
 	jboss-classfilewriter;version='[1.2.3,1.2.4)',\
-	org.apache.aries.cdi.extender;version='[1.0.0,1.0.1)',\
-	org.apache.aries.cdi.extension.http;version='[1.0.0,1.0.1)',\
-	org.apache.aries.cdi.extra;version='[1.0.0,1.0.1)',\
+	org.apache.aries.cdi.extender;version='[1.0.1,1.0.2)',\
+	org.apache.aries.cdi.extension.http;version='[1.0.1,1.0.2)',\
+	org.apache.aries.cdi.extra;version='[1.0.1,1.0.2)',\
 	org.apache.aries.spifly.dynamic.framework.extension;version='[1.2.0,1.2.1)',\
 	org.apache.felix.configadmin;version='[1.9.10,1.9.11)',\
 	org.apache.felix.gogo.command;version='[1.1.0,1.1.1)',\
@@ -74,4 +76,4 @@
 	org.osgi.service.http.whiteboard;version='[1.1.0,1.1.1)',\
 	org.osgi.service.http;version='[1.2.1,1.2.2)',\
 	org.osgi.util.function;version='[1.1.0,1.1.1)',\
-	org.osgi.util.promise;version='[1.1.0,1.1.1)'
+	org.osgi.util.promise;version='[1.1.0,1.1.1)',\

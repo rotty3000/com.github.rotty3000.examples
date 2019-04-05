@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.osgi.service.log.Logger;
 import org.osgi.util.promise.Deferred;
 
-@WebServlet(name = "SimpleServlet", urlPatterns = "/s/*")
+@WebServlet(name = "SimpleServlet", urlPatterns = "/*")
 public class SimpleServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
