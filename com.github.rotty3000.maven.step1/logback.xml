@@ -14,6 +14,11 @@
  */
 -->
 
+<!--
+This is a logback configuration file with a bunch of details on tweaking OSGi logging.
+Go ahead and play around with it.
+-->
+
 <configuration>
 	<!--  scan="true" scanPeriod="5 seconds" debug="true"> -->
 	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">

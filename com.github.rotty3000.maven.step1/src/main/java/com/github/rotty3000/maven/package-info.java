@@ -17,5 +17,9 @@
  *  under the License.
  */
 
+
+/**
+ * This package uses an annotation provided by gogo.runtime which sais "I need GOGO installed!"
+ */
 @org.apache.felix.service.command.annotations.RequireGogo
 package com.github.rotty3000.maven;
