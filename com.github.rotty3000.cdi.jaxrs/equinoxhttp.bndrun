@@ -10,7 +10,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-java: ${if;${env;JAVA_HOME};${env;JAVA_HOME}/bin/java;${java.home}/bin/java}
+#java: ${if;${env;JAVA_HOME};${env;JAVA_HOME}/bin/java;${java.home}/bin/java}
 
 -runfw: org.eclipse.osgi
 

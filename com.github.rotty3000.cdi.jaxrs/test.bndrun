@@ -12,7 +12,7 @@
 
 #-runjdb: 8000
 
-java: ${if;${env;JAVA_HOME};${env;JAVA_HOME}/bin/java;${java.home}/bin/java}
+#java: ${if;${env;JAVA_HOME};${env;JAVA_HOME}/bin/java;${java.home}/bin/java}
 
 -runfw: org.eclipse.osgi
 
@@ -44,7 +44,7 @@ java: ${if;${env;JAVA_HOME};${env;JAVA_HOME}/bin/java;${java.home}/bin/java}
 	osgi.identity;filter:='(osgi.identity=org.jboss.spec.javax.el.jboss-el-api_3.0_spec)'
 
 -runbundles: \
-	biz.aQute.junit;version='[4.2.0,4.2.1)',\
+	biz.aQute.junit;version='[4.3.0,4.3.1)',\
 	com.github.rotty3000.cdi.jaxrs-test;version='[0.0.1,0.0.2)',\
 	com.github.rotty3000.cdi.jaxrs;version='[0.0.1,0.0.2)',\
 	jboss-classfilewriter;version='[1.2.3,1.2.4)',\
