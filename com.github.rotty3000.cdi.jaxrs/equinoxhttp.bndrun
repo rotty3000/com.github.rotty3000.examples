@@ -14,8 +14,6 @@
 
 -runfw: org.eclipse.osgi
 
--runee: JavaSE-1.8
-
 -resolve.effective: resolve, active
 
 -runproperties: \
@@ -38,7 +36,8 @@
 	org.apache.felix.logback,\
 	slf4j.api
 
--runrequires: osgi.identity;filter:='(osgi.identity=com.github.rotty3000.cdi.jaxrs)',\
+-runrequires: \
+	osgi.identity;filter:='(osgi.identity=com.github.rotty3000.cdi.jaxrs)',\
 	osgi.identity;filter:='(osgi.identity=org.eclipse.equinox.http.jetty)'
 
 -runblacklist: \
