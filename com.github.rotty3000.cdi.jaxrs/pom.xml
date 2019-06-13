@@ -30,6 +30,7 @@
 		<java.version>1.8</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<distro>${com.liferay.portal:release.dxp.distro:jar}</distro>
 	</properties>
 
 	<dependencies>
@@ -182,6 +183,20 @@
 			<version>2.3.2</version>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>biz.aQute.bnd</groupId>
+			<artifactId>biz.aQute.remote.launcher</artifactId>
+			<version>${bnd.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Liferay distro -->
+		<dependency>
+			<groupId>com.liferay.portal</groupId>
+			<artifactId>release.dxp.distro</artifactId>
+			<version>7.2.10</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -294,6 +309,18 @@
 							</bndruns>
 						</configuration>
 					</execution>
+					<execution>
+						<id>liferay</id>
+						<phase>package</phase>
+						<goals>
+							<goal>resolve</goal>
+						</goals>
+						<configuration>
+							<bndruns>
+								<bndrun>liferay.bndrun</bndrun>
+							</bndruns>
+						</configuration>
+					</execution>
 					<!-- Integration Test Configuration -->
 					<execution>
 						<id>resolve-test</id>
@@ -374,6 +401,9 @@
 				<artifactId>bnd-run-maven-plugin</artifactId>
 				<version>${bnd.version}</version>
 				<configuration>
+					<resolve>true</resolve>
+					<reportOptional>false</reportOptional>
+					<failOnChanges>false</failOnChanges>
 					<includeDependencyManagement>true</includeDependencyManagement>
 				</configuration>
 				<executions>
@@ -387,6 +417,12 @@
 						<id>equinox</id>
 						<configuration>
 							<bndrun>equinoxhttp.bndrun</bndrun>
+						</configuration>
+					</execution>
+					<execution>
+						<id>liferay</id>
+						<configuration>
+							<bndrun>liferay.bndrun</bndrun>
 						</configuration>
 					</execution>
 				</executions>
@@ -432,6 +468,17 @@
 				</executions>
 			</plugin>
 
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.1.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>properties</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.0.0-M3</version>
