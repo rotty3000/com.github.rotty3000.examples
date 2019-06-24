@@ -21,7 +21,6 @@ package org.github.rotty3000.cdi.jaxrs;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import javax.ws.rs.client.ClientBuilder;
 
