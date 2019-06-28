@@ -80,7 +80,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.util.function</artifactId>
+			<version>1.1.0</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.util.promise</artifactId>
+			<version>1.1.1</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
@@ -282,6 +288,7 @@
 				<version>${bnd.version}</version>
 				<configuration>
 					<failOnChanges>false</failOnChanges>
+					<reportOptional>false</reportOptional>
 					<includeDependencyManagement>true</includeDependencyManagement>
 				</configuration>
 				<executions>
