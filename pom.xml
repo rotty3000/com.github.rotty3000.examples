@@ -37,7 +37,7 @@
 
 	<modules>
 		<module>com.github.rotty3000.maven.step1</module>
-		<!-- <module>com.github.rotty3000.maven.step2</module> -->
+		<module>com.github.rotty3000.maven.step2</module>
 	</modules>
 
 	<build>
