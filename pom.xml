@@ -31,6 +31,7 @@
 		<module>com.github.rotty3000.maven.step4</module>
 		<module>com.github.rotty3000.maven.step5</module>
 		<module>com.github.rotty3000.maven.step6</module>
+		<module>com.github.rotty3000.maven.step7</module>
 	</modules>
 
 </project>
