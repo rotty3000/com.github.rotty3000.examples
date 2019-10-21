@@ -15,14 +15,14 @@
 #
 
 # Which framework to use
--runfw: org.apache.felix.framework
+-runfw: org.eclipse.osgi
 
 ################################################################################
 # Everything beyond this point are low level runtime considerations.
 #
 
-# This is a slightly low level detail required when wishing to resolve across
-# service requirement boundaries.
+# This is required when wishing to resolve across service requirement
+# boundaries.
 #-resolve.effective: active
 
 ################################################################################

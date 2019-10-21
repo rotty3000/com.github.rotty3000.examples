@@ -40,6 +40,7 @@
 		<module>com.github.rotty3000.maven.step2</module>
 		<module>com.github.rotty3000.maven.step3</module>
 		<module>com.github.rotty3000.maven.step4</module>
+		<module>com.github.rotty3000.maven.step5</module>
 	</modules>
 
 	<build>
@@ -66,6 +67,7 @@
 					<version>${bnd.version}</version>
 					<configuration>
 						<failOnChanges>false</failOnChanges>
+						<reportOptional>false</reportOptional>
 						<includeDependencyManagement>true</includeDependencyManagement>
 					</configuration>
 					<executions>
@@ -185,6 +187,13 @@
 	<dependencyManagement>
 		<!-- Setup some shared dependencies -->
 		<dependencies>
+			<!-- Select a framework -->
+			<dependency>
+				<groupId>org.eclipse.platform</groupId>
+				<artifactId>org.eclipse.osgi</artifactId>
+				<version>3.15.0</version>
+				<scope>runtime</scope>
+			</dependency>
 			<!-- This is the jar which gives us the nice logging support for logback and transitively brings all we need. -->
 			<dependency>
 				<groupId>org.apache.felix</groupId>
