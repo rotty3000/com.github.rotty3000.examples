@@ -21,10 +21,9 @@ package com.github.rotty3000.maven.step5;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
 
-import org.osgi.service.cdi.annotations.SingleComponent;
-
-@SingleComponent
+@ApplicationScoped
 public class Foo {
 
 	@PostConstruct

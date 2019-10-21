@@ -21,12 +21,12 @@ package com.github.rotty3000.maven.step6;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.osgi.service.cdi.annotations.SingleComponent;
 import org.osgi.service.log.Logger;
 
-@SingleComponent
+@ApplicationScoped
 public class Foo {
 
 	@Inject
