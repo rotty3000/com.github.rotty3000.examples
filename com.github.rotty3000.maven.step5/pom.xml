@@ -23,7 +23,7 @@
 		<artifactId>com.github.rotty3000.maven.step0</artifactId>
 		<groupId>com.github.rotty3000</groupId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>..</relativePath>
+		<relativePath>../com.github.rotty3000.maven.step0/</relativePath>
 	</parent>
 
 	<artifactId>com.github.rotty3000.maven.step5</artifactId>
