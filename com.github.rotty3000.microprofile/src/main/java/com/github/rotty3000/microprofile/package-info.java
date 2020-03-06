@@ -17,29 +17,10 @@
  *  under the License.
  */
 
-package com.github.rotty3000.maven.step7;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
-import org.osgi.service.log.Logger;
-
-@ApplicationScoped
-public class Foo {
-
-	@Inject
-	private Logger logger;
-
-	@PostConstruct
-	void setup() {
-		logger.info("Foo got made.");
-	}
-
-	@PreDestroy
-	void teardown() {
-		logger.info("Foo's going away.");
-	}
-
-}
+/**
+ * This package uses an annotation provided by gogo.runtime which says "I need GOGO installed!"
+ */
+@org.osgi.service.cdi.annotations.Beans
+@org.osgi.service.configurator.annotations.RequireConfigurator
+package com.github.rotty3000.microprofile;

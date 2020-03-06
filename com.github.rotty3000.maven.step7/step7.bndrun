@@ -32,6 +32,7 @@
 # This is required when wishing to resolve across service requirement
 # boundaries.
 -resolve.effective: active
+-resolve: beforelaunch
 
 # We're using a special logging setup and this says which packages are avaible
 # for that.
@@ -63,9 +64,6 @@
 	org.apache.aries.cdi.extender;version='[1.0.3,1.0.4)',\
 	org.apache.aries.spifly.dynamic.framework.extension;version='[1.2.0,1.2.1)',\
 	org.apache.felix.configadmin;version='[1.9.10,1.9.11)',\
-	org.apache.felix.gogo.command;version='[1.1.0,1.1.1)',\
-	org.apache.felix.gogo.runtime;version='[1.1.2,1.1.3)',\
-	org.apache.felix.gogo.shell;version='[1.1.2,1.1.3)',\
 	org.apache.geronimo.specs.geronimo-annotation_1.3_spec;version='[1.1.0,1.1.1)',\
 	org.apache.geronimo.specs.geronimo-atinject_1.0_spec;version='[1.1.0,1.1.1)',\
 	org.apache.geronimo.specs.geronimo-el_2.2_spec;version='[1.1.0,1.1.1)',\
@@ -75,4 +73,7 @@
 	org.jboss.weld.osgi-bundle;version='[3.0.5,3.0.6)',\
 	org.osgi.service.cdi;version='[1.0.0,1.0.1)',\
 	org.osgi.util.function;version='[1.1.0,1.1.1)',\
-	org.osgi.util.promise;version='[1.1.0,1.1.1)'
+	org.osgi.util.promise;version='[1.1.0,1.1.1)',\
+	org.apache.felix.gogo.command;version='[1.1.0,1.1.1)',\
+	org.apache.felix.gogo.runtime;version='[1.1.2,1.1.3)',\
+	org.apache.felix.gogo.shell;version='[1.1.2,1.1.3)'

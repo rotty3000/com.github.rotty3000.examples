@@ -14,11 +14,6 @@
  */
 -->
 
-<!--
-This is a logback configuration file with a bunch of details on tweaking OSGi logging.
-Go ahead and play around with it.
--->
-
 <configuration>
 	<!--  scan="true" scanPeriod="5 seconds" debug="true"> -->
 	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
@@ -33,13 +28,10 @@ Go ahead and play around with it.
 	</appender>
 
 	<!-- <logger name="Events.Service.org.apache.aries.cdi" level="INFO"/> -->
+	<!-- <logger name="org.apache.aries.cdi" level="DEBUG"/> -->
 
-	<logger name="org.apache.cxf" level="ERROR"/>
-	<logger name="org.eclipse" level="ERROR"/>
 	<logger name="org.eclipse.jetty" level="INFO"/>
 	<logger name="org.jboss" level="ERROR"/>
-
-	<logger name="com.github.rotty3000.microprofile" level="DEBUG"/>
 
 	<root level="WARN">
 		<appender-ref ref="STDOUT" />

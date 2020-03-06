@@ -30,12 +30,11 @@
 	<groupId>com.github.rotty3000</groupId>
 	<version>0.0.1-SNAPSHOT</version>
 
+	<properties>
+		<geronimo-microprofile.version>1.0.2</geronimo-microprofile.version>
+	</properties>
+
 	<dependencies>
-		<!-- The annotation for gogo comes from this JAR. It's managed in the gogo POM. -->
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.apache.felix.gogo.runtime</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.geronimo.specs</groupId>
 			<artifactId>geronimo-atinject_1.0_spec</artifactId>
@@ -49,12 +48,53 @@
 			<artifactId>geronimo-jcdi_2.0_spec</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-json_1.1_spec</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.service.cdi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.service.configurator</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.service.log</artifactId>
+			<version>1.4.0</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.aries.jax.rs</groupId>
+			<artifactId>org.apache.aries.jax.rs.whiteboard</artifactId>
+			<version>1.0.6</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.configadmin</artifactId>
+			<version>1.9.16</version><!--$NO-MVN-MAN-VER$-->
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.configurator</artifactId>
+			<version>1.0.10</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.converter</artifactId>
+			<version>1.0.10</version><!--$NO-MVN-MAN-VER$-->
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.johnzon</groupId>
+			<artifactId>johnzon-core</artifactId>
+			<version>1.2.1</version>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- This is the jar which gives us the nice logging support for logback and transitively brings all we need. -->
@@ -70,14 +110,31 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.gogo.runtime</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>osgi.core</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.aries.testsupport</groupId>
+			<artifactId>org.apache.aries.testsupport.it</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.apache.aries.jax.rs</groupId>
+				<artifactId>org.apache.aries.jax.rs</artifactId>
+				<version>1.0.6</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 			<dependency>
 				<groupId>org.apache.geronimo</groupId>
 				<artifactId>geronimo-microprofile-aggregator</artifactId>
@@ -102,6 +159,12 @@
 				<groupId>biz.aQute.bnd</groupId>
 				<artifactId>bnd-maven-plugin</artifactId>
 				<executions>
+					<execution>
+						<id>bnd-process</id>
+						<goals>
+							<goal>bnd-process</goal>
+						</goals>
+					</execution>
 					<!-- Integration Test Configuration -->
 					<execution>
 						<id>bnd-process-test</id>
@@ -128,11 +191,21 @@
 				<groupId>biz.aQute.bnd</groupId>
 				<artifactId>bnd-resolver-maven-plugin</artifactId>
 				<configuration>
-					<bndruns>
-						<bndrun>step7.bndrun</bndrun>
-					</bndruns>
+					<failOnChanges>false</failOnChanges>
+					<includeDependencyManagement>true</includeDependencyManagement>
 				</configuration>
 				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>resolve</goal>
+						</goals>
+						<configuration>
+							<bndruns>
+								<bndrun>microprofile.bndrun</bndrun>
+							</bndruns>
+						</configuration>
+					</execution>
 					<!-- Integration Test Configuration -->
 					<execution>
 						<id>resolve-test</id>
@@ -188,7 +261,7 @@
 			</plugin>
 			<!-- This lets you run your project. Try:
 
-			]$ mvn package bnd-run:run@step7
+			]$ mvn package bnd-run:run@microprofile
 
 			-->
 			<plugin>
@@ -196,9 +269,10 @@
 				<artifactId>bnd-run-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>step7</id>
+						<id>microprofile</id>
 						<configuration>
-							<bndrun>step7.bndrun</bndrun>
+							<includeDependencyManagement>true</includeDependencyManagement>
+							<bndrun>microprofile.bndrun</bndrun>
 						</configuration>
 					</execution>
 				</executions>
@@ -215,7 +289,7 @@
 				<artifactId>bnd-export-maven-plugin</artifactId>
 				<configuration>
 					<bndruns>
-						<bndrun>step7.bndrun</bndrun>
+						<bndrun>microprofile.bndrun</bndrun>
 					</bndruns>
 				</configuration>
 			</plugin>
@@ -223,6 +297,14 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<executions>
+					<execution>
+						<id>default-jar</id>
+						<configuration>
+							<archive>
+								<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+							</archive>
+						</configuration>
+					</execution>
 					<execution>
 						<id>test-jar</id>
 						<phase>package</phase>

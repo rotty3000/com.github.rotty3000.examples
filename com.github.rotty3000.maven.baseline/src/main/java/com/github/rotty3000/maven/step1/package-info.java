@@ -21,6 +21,6 @@
 /**
  * This package uses an annotation provided by gogo.runtime which sais "I need GOGO installed!"
  */
-@org.apache.felix.service.command.annotations.RequireGogo
-@org.osgi.service.cdi.annotations.Beans
-package com.github.rotty3000.maven.step7;
+@org.osgi.annotation.versioning.Version("3.0.0")
+@org.osgi.annotation.bundle.Export
+package com.github.rotty3000.maven.step1;

@@ -1,0 +1,9 @@
+{
+	":configurator:resource-version" : 1,
+	":configurator:symbolic-name" : "com.github.rotty3000.microprofile.config",
+	":configurator:version" : "0.0.1.SNAPSHOT",
+
+	"org.apache.aries.jax.rs.whiteboard.default": {
+		"default.web": false
+	}
+}

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>com.github.rotty3000.rules</artifactId>
+	<groupId>com.github.rotty3000</groupId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<bnd.version>4.3.0</bnd.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>biz.aQute.bnd</groupId>
+			<artifactId>biz.aQute.junit</artifactId>
+			<version>${bnd.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.util.promise</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.annotation</artifactId>
+			<version>7.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.core</artifactId>
+			<version>7.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.platform</groupId>
+			<artifactId>org.eclipse.osgi</artifactId>
+			<version>3.15.0</version>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.0.0-M2</version>
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+						<goal>enforce</goal>
+						</goals>
+						<configuration>
+						<rules>
+							<requireJavaVersion>
+								<version>${java.version}</version>
+							</requireJavaVersion>
+							<requireMavenVersion>
+								<version>3.2.5</version>
+							</requireMavenVersion>
+						</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-maven-plugin</artifactId>
+				<version>${bnd.version}</version>
+				<executions>
+					<execution>
+						<id>bnd-process</id>
+						<goals>
+							<goal>bnd-process</goal>
+						</goals>
+					</execution>
+					<!-- Integration Test Configuration -->
+					<execution>
+						<id>bnd-process-test</id>
+						<phase>process-test-classes</phase>
+						<goals>
+							<goal>bnd-process</goal>
+						</goals>
+						<configuration>
+							<bnd><![CDATA[
+								Bundle-SymbolicName: ${project.artifactId}-test
+								Fragment-Host: ${project.artifactId}
+								Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.Test}
+								-fixupmessages: "Host ${project.artifactId}=...";is:=ignore
+							]]></bnd>
+							<classesDir>${project.build.testOutputDirectory}</classesDir>
+							<outputDir>${project.build.testOutputDirectory}</outputDir>
+							<manifestPath>${project.build.testOutputDirectory}/META-INF/MANIFEST.MF</manifestPath>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-resolver-maven-plugin</artifactId>
+				<version>${bnd.version}</version>
+				<configuration>
+					<failOnChanges>false</failOnChanges>
+					<includeDependencyManagement>true</includeDependencyManagement>
+				</configuration>
+				<executions>
+					<!-- Integration Test Configuration -->
+					<execution>
+						<id>resolve</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>resolve</goal>
+						</goals>
+						<configuration>
+							<scopes>
+								<scope>compile</scope>
+								<scope>runtime</scope>
+								<scope>test</scope>
+							</scopes>
+							<bundles>
+								<bundle>target/${project.build.finalName}-test.jar</bundle>
+							</bundles>
+							<bndruns>
+								<bndrun>test.bndrun</bndrun>
+							</bndruns>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-testing-maven-plugin</artifactId>
+				<version>${bnd.version}</version>
+				<configuration>
+					<failOnChanges>false</failOnChanges>
+					<resolve>false</resolve>
+					<includeDependencyManagement>true</includeDependencyManagement>
+					<scopes>
+						<scope>compile</scope>
+						<scope>runtime</scope>
+						<scope>test</scope>
+					</scopes>
+					<bundles>
+						<bundle>target/${project.build.finalName}-test.jar</bundle>
+					</bundles>
+					<bndruns>
+						<bndrun>test.bndrun</bndrun>
+					</bndruns>
+				</configuration>
+				<executions>
+					<execution>
+						<id>testing</id>
+						<goals>
+							<goal>testing</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.1</version>
+				<executions>
+					<execution>
+						<id>default-jar</id>
+						<configuration>
+							<archive>
+								<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+							</archive>
+						</configuration>
+					</execution>
+					<execution>
+						<id>test-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>test</classifier>
+							<classesDirectory>${project.build.testOutputDirectory}</classesDirectory>
+							<archive>
+								<manifestFile>${project.build.testOutputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+							</archive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M3</version>
+				<executions>
+					<execution>
+						<id>default-test</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>true</skip>
+							<failIfNoTests>false</failIfNoTests>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
