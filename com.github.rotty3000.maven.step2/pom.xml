@@ -28,8 +28,6 @@
 	</parent>
 
 	<artifactId>com.github.rotty3000.maven.step2</artifactId>
-	<groupId>com.github.rotty3000</groupId>
-	<version>0.0.1-SNAPSHOT</version>
 
 	<!-- Setup the necessary plugins for basic operation. -->
 	<build>

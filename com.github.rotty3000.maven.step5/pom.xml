@@ -27,8 +27,6 @@
 	</parent>
 
 	<artifactId>com.github.rotty3000.maven.step5</artifactId>
-	<groupId>com.github.rotty3000</groupId>
-	<version>0.0.1-SNAPSHOT</version>
 
 	<dependencies>
 		<!-- The annotation for gogo comes from this JAR. It's managed in the gogo POM. -->

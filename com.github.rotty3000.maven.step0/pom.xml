@@ -26,7 +26,7 @@
 
 	<properties>
 		<!-- Start with the latest BND version. -->
-		<bnd.version>4.4.0-SNAPSHOT</bnd.version>
+		<bnd.version>5.1.1</bnd.version>
 
 		<!-- Then set some typical build defaults like source encoding and Java version.. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
